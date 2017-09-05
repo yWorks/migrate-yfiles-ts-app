@@ -10,22 +10,30 @@ export class Rule extends Lint.Rules.TypedRule {
 
 class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
   public visitElementAccessExpression(node: ts.ElementAccessExpression) {
+    const argumentExpression = node.argumentExpression;
+
+    if (argumentExpression.kind === ts.SyntaxKind.StringLiteral) {
+      const text = argumentExpression.getText();
+      const oldName = text.substring(1, text.length - 1);
+
+      this.checkMemberNode(node, node.expression, oldName);
+    }
+
     super.visitElementAccessExpression(node);
   }
 
   public visitPropertyAccessExpression(node: ts.PropertyAccessExpression) {
-    this.checkMemberNode(node);
+    this.checkMemberNode(node, node.expression, node.name.text);
     super.visitPropertyAccessExpression(node);
   }
 
-  private checkMemberNode(node: ts.PropertyAccessExpression) {
+  private checkMemberNode(node: ts.Node, typeExpression: ts.Expression, oldName: string) {
     const checker = this.getTypeChecker();
-    const symbol = checker.getTypeAtLocation(node.expression).getSymbol();
+    const symbol = checker.getTypeAtLocation(typeExpression).getSymbol();
     if (!symbol) {
       return;
     }
     const type = checker.getFullyQualifiedName(symbol);
-    const oldName = node.name.text;
 
     const newName = changes["memberRenamings"][type] && changes["memberRenamings"][type][oldName];
     if (newName) {
