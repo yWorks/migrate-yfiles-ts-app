@@ -16,14 +16,24 @@ class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
       const text = argumentExpression.getText();
       const oldName = text.substring(1, text.length - 1);
 
+      // check instance members
       this.checkMemberNode(node, node.expression, oldName);
+
+      // check static members
+      this.checkForRenames(node, node.expression.getText(), oldName);
     }
 
     super.visitElementAccessExpression(node);
   }
 
   public visitPropertyAccessExpression(node: ts.PropertyAccessExpression) {
-    this.checkMemberNode(node, node.expression, node.name.text);
+    const oldName = node.name.getText();
+
+    // check instance members
+    this.checkMemberNode(node, node.expression, oldName);
+
+    // check static members
+    this.checkForRenames(node, node.expression.getText(), oldName);
     super.visitPropertyAccessExpression(node);
   }
 
@@ -67,11 +77,13 @@ class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
       return;
     }
     const type = checker.getFullyQualifiedName(symbol);
+    this.checkForRenames(node, type, oldName);
+  }
 
+  private checkForRenames(node: ts.Node, type: string, oldName: string) {
     const newName = changes["memberRenamings"][type] && changes["memberRenamings"][type][oldName];
     if (newName) {
       this.addFailureAtNode(node, `"${type}#${oldName}" has been renamed to "${newName}"`);
     }
-
   }
 }
