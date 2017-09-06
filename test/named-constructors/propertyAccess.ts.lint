@@ -1,0 +1,6 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+new yfiles.canvas.GraphControl.ForDiv(null);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [Named constructors have been replaced by overloaded constructors. Simply remove the ".ForDiv".]
+
+new yfiles.canvas.GraphControl();
