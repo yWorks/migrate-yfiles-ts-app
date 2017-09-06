@@ -1,6 +1,7 @@
 import * as ts from "typescript";
 import * as Lint from "tslint";
 import {changes} from "../changes"
+import {MemberRuleWalker} from "./memberRuleWalker";
 
 export class Rule extends Lint.Rules.TypedRule {
   public applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
@@ -8,82 +9,12 @@ export class Rule extends Lint.Rules.TypedRule {
   }
 }
 
-class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
-  public visitElementAccessExpression(node: ts.ElementAccessExpression) {
-    const argumentExpression = node.argumentExpression;
+class MemberRenameWalker extends MemberRuleWalker {
+  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
+    const newName = changes["memberRenamings"][oldParentName] && changes["memberRenamings"][oldParentName][oldMemberName];
 
-    if (argumentExpression.kind === ts.SyntaxKind.StringLiteral) {
-      const text = argumentExpression.getText();
-      const oldName = text.substring(1, text.length - 1);
-
-      // check instance members
-      this.checkMemberNode(node, node.expression, oldName);
-
-      // check static members
-      this.checkForRenames(node, node.expression.getText(), oldName);
-    }
-
-    super.visitElementAccessExpression(node);
-  }
-
-  public visitPropertyAccessExpression(node: ts.PropertyAccessExpression) {
-    const oldName = node.name.getText();
-
-    // check instance members
-    this.checkMemberNode(node, node.expression, oldName);
-
-    // check static members
-    this.checkForRenames(node, node.expression.getText(), oldName);
-    super.visitPropertyAccessExpression(node);
-  }
-
-  protected visitMethodDeclaration(node: ts.MethodDeclaration): void {
-    this.checkInheritedMember(node);
-    super.visitMethodDeclaration(node);
-  }
-
-  protected visitPropertyDeclaration(node: ts.PropertyDeclaration): void {
-    this.checkInheritedMember(node);
-    super.visitPropertyDeclaration(node);
-  }
-
-  protected visitGetAccessor(node: ts.AccessorDeclaration): void {
-    this.checkInheritedMember(node);
-    super.visitGetAccessor(node);
-  }
-
-  protected visitSetAccessor(node: ts.AccessorDeclaration): void {
-    this.checkInheritedMember(node);
-    super.visitSetAccessor(node);
-  }
-
-  private checkInheritedMember(node: ts.MethodDeclaration | ts.PropertyDeclaration | ts.AccessorDeclaration) {
-    const oldName = node.name.getText();
-    if (node.parent.kind === ts.SyntaxKind.ClassDeclaration) {
-      const classDeclaration = <ts.ClassDeclaration> node.parent;
-
-      classDeclaration.heritageClauses.forEach(heritageClause => {
-        heritageClause.types.forEach(typeNode => {
-          this.checkMemberNode(node, typeNode, oldName)
-        });
-      });
-    }
-  }
-
-  private checkMemberNode(node: ts.Node, typeNode: ts.Node, oldName: string) {
-    const checker = this.getTypeChecker();
-    const symbol = checker.getTypeAtLocation(typeNode).getSymbol();
-    if (!symbol) {
-      return;
-    }
-    const type = checker.getFullyQualifiedName(symbol);
-    this.checkForRenames(node, type, oldName);
-  }
-
-  private checkForRenames(node: ts.Node, type: string, oldName: string) {
-    const newName = changes["memberRenamings"][type] && changes["memberRenamings"][type][oldName];
     if (newName) {
-      this.addFailureAtNode(node, `"${type}#${oldName}" has been renamed to "${newName}"`);
+      this.addFailureAtNode(node, `"${oldParentName}#${oldMemberName}" has been renamed to "${newName}"`);
     }
   }
 }
