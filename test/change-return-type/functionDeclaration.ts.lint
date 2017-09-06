@@ -1,0 +1,11 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+// class MyAbortHandler extends yfiles.algorithms.AbortHandler {
+//   timeToCancel(): number {return 0}
+//   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The return type of "yfiles.graph.FilteredGraphWrapper#addBend" has changed to "yfiles.lang.TimeSpan"]
+// }
+
+class MyGC extends yfiles.canvas.GraphControl {
+  createSelectionPaintManager(): yfiles.model.SelectionPaintManager<yfiles.model.IModelItem> {return null}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The return type of "yfiles.canvas.GraphControl#createSelectionPaintManager" has changed from "yfiles.model.SelectionPaintManager" to "yfiles.view.IGraphSelection"]
+}
