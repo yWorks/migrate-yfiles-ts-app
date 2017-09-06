@@ -1,0 +1,6 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyGraph extends yfiles.algorithms.Graph {
+  addGraphListener(listener: yfiles.algorithms.IGraphListener): void {}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.algorithms.Graph#addGraphListener" has been removed]
+}
