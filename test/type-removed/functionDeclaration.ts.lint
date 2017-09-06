@@ -1,0 +1,5 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+function f(a: yfiles.algorithms.ArrayIntNodePQ): yfiles.algorithms.ArrayIntNodePQ {return null}
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The type "yfiles.algorithms.ArrayIntNodePQ" has been removed]
+                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The type "yfiles.algorithms.ArrayIntNodePQ" has been removed]

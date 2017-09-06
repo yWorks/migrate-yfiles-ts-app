@@ -1,0 +1,6 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyHider extends yfiles.algorithms.ArrayIntNodePQ implements yfiles.algorithms.ArrayIntNodePQ {
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The type "yfiles.algorithms.ArrayIntNodePQ" has been removed]
+                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The type "yfiles.algorithms.ArrayIntNodePQ" has been removed]
+}
