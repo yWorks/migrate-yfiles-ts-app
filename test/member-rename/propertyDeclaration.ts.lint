@@ -1,0 +1,12 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyGraphControl extends yfiles.canvas.GraphControl {
+  get undoabilityEnabled() {return true}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]
+
+  set undoabilityEnabled() {return true}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]
+
+  root: null;
+  ~~~~~~~~~~~ ["yfiles.canvas.GraphControl#root" has been renamed to "rootGroup"]
+}

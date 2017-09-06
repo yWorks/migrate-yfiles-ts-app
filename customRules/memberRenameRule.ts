@@ -27,9 +27,42 @@ class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
     super.visitPropertyAccessExpression(node);
   }
 
-  private checkMemberNode(node: ts.Node, typeExpression: ts.Expression, oldName: string) {
+  protected visitMethodDeclaration(node: ts.MethodDeclaration): void {
+    this.checkInheritedMember(node);
+    super.visitMethodDeclaration(node);
+  }
+
+  protected visitPropertyDeclaration(node: ts.PropertyDeclaration): void {
+    this.checkInheritedMember(node);
+    super.visitPropertyDeclaration(node);
+  }
+
+  protected visitGetAccessor(node: ts.AccessorDeclaration): void {
+    this.checkInheritedMember(node);
+    super.visitGetAccessor(node);
+  }
+
+  protected visitSetAccessor(node: ts.AccessorDeclaration): void {
+    this.checkInheritedMember(node);
+    super.visitSetAccessor(node);
+  }
+
+  private checkInheritedMember(node: ts.MethodDeclaration | ts.PropertyDeclaration | ts.AccessorDeclaration) {
+    const oldName = node.name.getText();
+    if (node.parent.kind === ts.SyntaxKind.ClassDeclaration) {
+      const classDeclaration = <ts.ClassDeclaration> node.parent;
+
+      classDeclaration.heritageClauses.forEach(heritageClause => {
+        heritageClause.types.forEach(typeNode => {
+          this.checkMemberNode(node, typeNode, oldName)
+        });
+      });
+    }
+  }
+
+  private checkMemberNode(node: ts.Node, typeNode: ts.Node, oldName: string) {
     const checker = this.getTypeChecker();
-    const symbol = checker.getTypeAtLocation(typeExpression).getSymbol();
+    const symbol = checker.getTypeAtLocation(typeNode).getSymbol();
     if (!symbol) {
       return;
     }

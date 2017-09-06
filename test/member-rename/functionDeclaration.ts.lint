@@ -1,0 +1,9 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyGraphControl extends yfiles.canvas.GraphControl {
+  addCompoundKeyPressedListener(value: (sender: Object, args: yfiles.input.CompoundKeyEventArgs) => void): void {}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#addCompoundKeyPressedListener" has been renamed to "addKeyDownListener"]
+
+  // no false positives!
+  addBackgroundGroupChangedListener(value: (sender: Object, e: yfiles.system.EventArgs) => void): void {}
+}
