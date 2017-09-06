@@ -1,0 +1,6 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+const abortHandler = new yfiles.algorithms.AbortHandler();
+
+abortHandler.cancelDuration = 1;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The type of property "yfiles.algorithms.AbortHandler#cancelDuration" has changed from "number" to "yfiles.lang.TimeSpan"]
