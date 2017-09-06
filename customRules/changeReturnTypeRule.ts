@@ -2,6 +2,7 @@ import * as ts from "typescript";
 import * as Lint from "tslint";
 import {changes} from "../changes"
 import {MemberRuleWalker} from "./memberRuleWalker";
+import {getFullyQualifiedName} from "./util";
 
 export class Rule extends Lint.Rules.TypedRule {
   public applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
@@ -30,7 +31,7 @@ class ChangeReturnTypeWalker extends MemberRuleWalker {
         targetNode = node.parent
       }
 
-      const oldReturnType = checker.getFullyQualifiedName(checker.getReturnTypeOfSignature(oldSignature).getSymbol());
+      const oldReturnType = getFullyQualifiedName(checker.getReturnTypeOfSignature(oldSignature), checker);
 
       this.addFailureAtNode(targetNode,
           `The return type of "${oldParentName}#${oldMemberName}" has changed from "${oldReturnType}" to "${newReturnType}"`);
