@@ -1,0 +1,12 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+const gc = new yfiles.canvas.GraphControl();
+
+gc.isDeviceDown()
+~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#isDeviceDown" is now a property]
+
+const edgeList = new yfiles.algorithms.EdgeList();
+
+edgeList.last;
+~~~~~~~~~~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
+

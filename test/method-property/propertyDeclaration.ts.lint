@@ -1,0 +1,9 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyEdgeList extends yfiles.algorithms.EdgeList {
+  get last() {return null}
+  ~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
+
+  set last(b) {}
+  ~~~~~~~~~~~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
+}
