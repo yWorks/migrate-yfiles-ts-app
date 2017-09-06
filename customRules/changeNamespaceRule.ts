@@ -11,7 +11,7 @@ export class Rule extends Lint.Rules.TypedRule {
 
 class ChangeNamespaceWalker extends NamespaceRuleWalker {
   protected checkNamespace(node: ts.Node, oldNamespace: string) {
-    const newNamespace = changes["namespaceChanges"][oldNamespace];
+    const newNamespace = changes["namespaceChanges"] && changes["namespaceChanges"][oldNamespace];
 
     if (newNamespace) {
       this.addFailureAtNode(node, `The namespace of "${oldNamespace}" has changed to "${newNamespace}"`);
