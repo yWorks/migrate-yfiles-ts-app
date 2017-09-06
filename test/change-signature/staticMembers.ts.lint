@@ -1,0 +1,4 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+new yfiles.drawing.SimpleLabelStyle.WithFontSizeAndBrush(null, 1, null);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The signature of "yfiles.drawing.SimpleLabelStyle#WithFontSizeAndBrush" has been changed from (font, size, brush) to (font, textSize, textFill)]

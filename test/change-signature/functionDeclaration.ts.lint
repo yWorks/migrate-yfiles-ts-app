@@ -1,0 +1,6 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyGraphControl extends yfiles.graph.FilteredGraphWrapper {
+  addBend(edge: yfiles.graph.IEdge, index: number, location: yfiles.geometry.PointD): yfiles.graph.IBend {}
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The signature of "yfiles.graph.FilteredGraphWrapper#addBend" has been changed from (edge, index, location) to (edge, location, index)]
+}
