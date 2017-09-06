@@ -1,0 +1,6 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyHider extends yfiles.algorithms.GraphHider implements yfiles.algorithms.IMap {
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The namespace of "yfiles.algorithms.GraphHider" has changed to "yfiles.algorithms.LayoutGraphHider"]
+                                                              ~~~~~~~~~~~~~~~~~~~~~~ [The namespace of "yfiles.algorithms.IMap" has changed to "yfiles.collections.IMap"]
+}

@@ -1,0 +1,9 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+class MyClass{
+  private myMethod(a: yfiles.algorithms.IMap): yfiles.AttributeDefinition {
+                      ~~~~~~~~~~~~~~~~~~~~~~ [The namespace of "yfiles.algorithms.IMap" has changed to "yfiles.collections.IMap"]
+                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~ [The namespace of "yfiles.AttributeDefinition" has changed to "yfiles.lang.AttributeDefinition"]
+
+  }
+}
