@@ -3,7 +3,7 @@
 const wrapper = new yfiles.graph.FilteredGraphWrapper(null, null, null);
 
 wrapper.addBend.call(null, null, 1, new yfiles.geometry.PointD(1, 2));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The signature of "yfiles.graph.AbstractGraphWrapper#addBend" has changed]
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The signature of "yfiles.graph.AbstractGraphWrapper#addBend" has changed]
 
 wrapper.addBend.apply(null, [null, 1, new yfiles.geometry.PointD(1, 2)]);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The signature of "yfiles.graph.AbstractGraphWrapper#addBend" has changed]
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The signature of "yfiles.graph.AbstractGraphWrapper#addBend" has changed]

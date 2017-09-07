@@ -3,4 +3,4 @@
 const wrapper = new yfiles.graph.FilteredGraphWrapper(null, null, null);
 
 wrapper.addBend(null, 1, new yfiles.geometry.PointD(1, 2));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The signature of "yfiles.graph.FilteredGraphWrapper#addBend" has been changed from (edge, index, location) to (edge, location, index)]
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The signature of "yfiles.graph.FilteredGraphWrapper#addBend" has been changed from (edge, index, location) to (edge, location, index)]

@@ -16,7 +16,6 @@ class ChangeSignatureWalker extends MemberRuleWalker {
     if (node.parent.kind !== ts.SyntaxKind.CallExpression
         && node.parent.kind !== ts.SyntaxKind.NewExpression
         && node.kind !== ts.SyntaxKind.MethodDeclaration) {
-      // TODO: call and apply
       return;
     }
 
@@ -32,25 +31,29 @@ class ChangeSignatureWalker extends MemberRuleWalker {
     if (signatureChanges) {
       const checker = this.getTypeChecker();
 
-      let oldSignature, targetNode;
+      let oldSignature, start, width;
       if (node.kind === ts.SyntaxKind.MethodDeclaration) {
-        oldSignature = checker.getSignatureFromDeclaration(<ts.SignatureDeclaration>node).declaration.parameters
+        const signatureDeclaration = checker.getSignatureFromDeclaration(<ts.SignatureDeclaration>node).declaration;
+        oldSignature = signatureDeclaration.parameters
             .map(parameter => parameter.name.getText());
-        targetNode = node;
+
+        start = (<ts.MethodDeclaration>node).name.getStart();
+        width = (<ts.MethodDeclaration>node).name.getWidth();
       } else {
         oldSignature = checker.getResolvedSignature(<ts.CallLikeExpression>node.parent).parameters
             .map(parameter => parameter.getName());
-        targetNode = node.parent
+
+        start = node.getEnd();
+        width = node.parent.getEnd() - start;
       }
 
       const newSignature = signatureChanges
           .map(oldIndexOrNewName => typeof oldIndexOrNewName === "number" ? oldSignature[oldIndexOrNewName] : oldIndexOrNewName);
 
       if (isCallOrApply) {
-        this.addFailureAtNode(targetNode,
-            `The signature of "${oldParentName}#${oldMemberName}" has changed`);
+        this.addFailureAt(start, width, `The signature of "${oldParentName}#${oldMemberName}" has changed`);
       } else {
-        this.addFailureAtNode(targetNode,
+        this.addFailureAt(start, width,
             `The signature of "${oldParentName}#${oldMemberName}" has been changed from (${oldSignature.join(", ")}) to (${newSignature.join(", ")})`);
       }
     }
