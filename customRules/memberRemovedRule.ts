@@ -15,8 +15,11 @@ class MemberRemovedWalker extends MemberRuleWalker {
     const removed = changes[this.configEntryName][oldParentName]
         && changes[this.configEntryName][oldParentName].indexOf(oldMemberName) >= 0;
 
+    const start = (<ts.NamedDeclaration>node).name.getStart();
+    const width = (<ts.NamedDeclaration>node).name.getWidth();
+
     if (removed) {
-      this.addFailureAtNode(node, `"${oldParentName}#${oldMemberName}" has been removed`);
+      this.addFailureAt(start, width, `"${oldParentName}#${oldMemberName}" has been removed`);
     }
   }
 }

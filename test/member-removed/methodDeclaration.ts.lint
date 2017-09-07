@@ -2,5 +2,5 @@
 
 class MyGraph extends yfiles.algorithms.Graph {
   addGraphListener(listener: yfiles.algorithms.IGraphListener): void {}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.algorithms.Graph#addGraphListener" has been removed]
+  ~~~~~~~~~~~~~~~~ ["yfiles.algorithms.Graph#addGraphListener" has been removed]
 }

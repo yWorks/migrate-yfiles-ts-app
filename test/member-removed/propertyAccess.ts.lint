@@ -3,4 +3,4 @@
 const g = new yfiles.algorithms.Graph();
 
 g.addGraphListener(null)
-~~~~~~~~~~~~~~~~~~        ["yfiles.algorithms.Graph#addGraphListener" has been removed]
+  ~~~~~~~~~~~~~~~~        ["yfiles.algorithms.Graph#addGraphListener" has been removed]

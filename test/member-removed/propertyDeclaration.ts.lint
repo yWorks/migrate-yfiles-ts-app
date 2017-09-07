@@ -2,8 +2,8 @@
 
 class MyGraph2 extends yfiles.graph.DefaultGraph {
   get bends() {return null}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.graph.DefaultGraph#bends" has been removed]
+      ~~~~~ ["yfiles.graph.DefaultGraph#bends" has been removed]
 
   set bends(b) {}
-  ~~~~~~~~~~~~~~~ ["yfiles.graph.DefaultGraph#bends" has been removed]
+      ~~~~~ ["yfiles.graph.DefaultGraph#bends" has been removed]
 }
