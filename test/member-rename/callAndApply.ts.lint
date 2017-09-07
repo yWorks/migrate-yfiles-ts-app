@@ -3,7 +3,7 @@
 const gc = new yfiles.canvas.GraphControl();
 
 gc.graph.createNodeWithBoundsAndTag.call(gc.graph, new yfiles.geometry.RectD(1, 2, 3, 4), null);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.graph.IGraph#createNodeWithBoundsAndTag" has been renamed to "createNode"]
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.graph.IGraph#createNodeWithBoundsAndTag" has been renamed to "createNode"]
 
 gc.graph.createNodeWithBoundsAndTag.apply(gc.graph, [new yfiles.geometry.RectD(1, 2, 3, 4), null]);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.graph.IGraph#createNodeWithBoundsAndTag" has been renamed to "createNode"]
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.graph.IGraph#createNodeWithBoundsAndTag" has been renamed to "createNode"]

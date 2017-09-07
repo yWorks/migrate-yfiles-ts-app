@@ -2,11 +2,11 @@
 
 class MyGraphControl extends yfiles.canvas.GraphControl {
   get undoabilityEnabled() {return true}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]
+      ~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]
 
   set undoabilityEnabled() {return true}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]
+      ~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]
 
   root: null;
-  ~~~~~~~~~~~ ["yfiles.canvas.GraphControl#root" has been renamed to "rootGroup"]
+  ~~~~ ["yfiles.canvas.GraphControl#root" has been renamed to "rootGroup"]
 }

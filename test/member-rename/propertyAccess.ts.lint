@@ -3,8 +3,8 @@
 const gc = new yfiles.canvas.GraphControl();
 
 gc.graph.createNodeWithBoundsAndTag(new yfiles.geometry.RectD(1, 2, 3, 4), null);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.graph.IGraph#createNodeWithBoundsAndTag" has been renamed to "createNode"]
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.graph.IGraph#createNodeWithBoundsAndTag" has been renamed to "createNode"]
 let root = gc.root;
-           ~~~~~~~ ["yfiles.canvas.GraphControl#root" has been renamed to "rootGroup"]
+              ~~~~ ["yfiles.canvas.GraphControl#root" has been renamed to "rootGroup"]
 gc.undoabilityEnabled = true; // -> enabled
-~~~~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]
+   ~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#undoabilityEnabled" has been renamed to "enabled"]

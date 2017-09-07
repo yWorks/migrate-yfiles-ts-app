@@ -14,8 +14,15 @@ class MemberRenameWalker extends MemberRuleWalker {
   protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
     const newName = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
 
+    let targetNode;
+    if (node.kind === ts.SyntaxKind.ElementAccessExpression) {
+      targetNode = (<ts.ElementAccessExpression>node).argumentExpression;
+    } else {
+      targetNode = (<ts.NamedDeclaration>node).name
+    }
+
     if (newName) {
-      this.addFailureAtNode(node, `"${oldParentName}#${oldMemberName}" has been renamed to "${newName}"`);
+      this.addFailureAtNode(targetNode, `"${oldParentName}#${oldMemberName}" has been renamed to "${newName}"`);
     }
   }
 }

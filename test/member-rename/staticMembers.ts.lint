@@ -1,7 +1,7 @@
 ///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
 
 const key = yfiles.circular.CircularLayouter.CIRCLE_ID_HOLDER_DP_KEY;
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.circular.CircularLayouter#CIRCLE_ID_HOLDER_DP_KEY" has been renamed to "CIRCLE_ID_DP_KEY"]
+                                             ~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.circular.CircularLayouter#CIRCLE_ID_HOLDER_DP_KEY" has been renamed to "CIRCLE_ID_DP_KEY"]
 
 const key = yfiles.circular.CircularLayouter["CIRCLE_ID_HOLDER_DP_KEY"];
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.circular.CircularLayouter#CIRCLE_ID_HOLDER_DP_KEY" has been renamed to "CIRCLE_ID_DP_KEY"]
+                                             ~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.circular.CircularLayouter#CIRCLE_ID_HOLDER_DP_KEY" has been renamed to "CIRCLE_ID_DP_KEY"]
