@@ -18,6 +18,14 @@ class ChangeSignatureWalker extends MemberRuleWalker {
       return;
     }
 
+    let isCallOrApply: boolean;
+    if (oldMemberName === "call" || oldMemberName === "apply") {
+      isCallOrApply = true;
+      const lastDot = oldParentName.lastIndexOf(".");
+      oldMemberName = oldParentName.substring(lastDot + 1);
+      oldParentName = oldParentName.substring(0, lastDot)
+    }
+
     const signatureChanges = changes["signatureChanges"][oldParentName] && changes["signatureChanges"][oldParentName][oldMemberName];
     if (signatureChanges) {
       const checker = this.getTypeChecker();
@@ -36,8 +44,13 @@ class ChangeSignatureWalker extends MemberRuleWalker {
       const newSignature = signatureChanges
           .map(oldIndexOrNewName => typeof oldIndexOrNewName === "number" ? oldSignature[oldIndexOrNewName] : oldIndexOrNewName);
 
-      this.addFailureAtNode(targetNode,
-          `The signature of "${oldParentName}#${oldMemberName}" has been changed from (${oldSignature.join(", ")}) to (${newSignature.join(", ")})`);
+      if (isCallOrApply) {
+        this.addFailureAtNode(targetNode,
+            `The signature of "${oldParentName}#${oldMemberName}" has changed`);
+      } else {
+        this.addFailureAtNode(targetNode,
+            `The signature of "${oldParentName}#${oldMemberName}" has been changed from (${oldSignature.join(", ")}) to (${newSignature.join(", ")})`);
+      }
     }
   }
 }

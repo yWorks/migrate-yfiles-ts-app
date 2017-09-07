@@ -14,8 +14,15 @@ class ChangeReturnTypeWalker extends MemberRuleWalker {
   protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
     if (node.parent.kind !== ts.SyntaxKind.CallExpression
         && node.kind !== ts.SyntaxKind.MethodDeclaration) {
-      // TODO: call and apply
       return;
+    }
+
+    let isCallOrApply: boolean;
+    if (oldMemberName === "call" || oldMemberName === "apply") {
+      isCallOrApply = true;
+      const lastDot = oldParentName.lastIndexOf(".");
+      oldMemberName = oldParentName.substring(lastDot + 1);
+      oldParentName = oldParentName.substring(0, lastDot)
     }
 
     const newReturnType = changes["returnTypeChanges"][oldParentName] && changes["returnTypeChanges"][oldParentName][oldMemberName];
@@ -33,8 +40,13 @@ class ChangeReturnTypeWalker extends MemberRuleWalker {
 
       const oldReturnType = getFullyQualifiedName(checker.getReturnTypeOfSignature(oldSignature), checker);
 
-      this.addFailureAtNode(targetNode,
-          `The return type of "${oldParentName}#${oldMemberName}" has changed from "${oldReturnType}" to "${newReturnType}"`);
+      if (isCallOrApply) {
+        this.addFailureAtNode(targetNode,
+            `The return type of "${oldParentName}#${oldMemberName}" has changed to "${newReturnType}"`);
+      } else {
+        this.addFailureAtNode(targetNode,
+            `The return type of "${oldParentName}#${oldMemberName}" has changed from "${oldReturnType}" to "${newReturnType}"`);
+      }
     }
   }
 }

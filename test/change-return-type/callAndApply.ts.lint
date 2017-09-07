@@ -1,0 +1,11 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+const abortHandler = new yfiles.algorithms.AbortHandler();
+
+abortHandler.timeToCancel.call();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The return type of "yfiles.algorithms.AbortHandler#timeToCancel" has changed to "yfiles.lang.TimeSpan"]
+
+const gc = new yfiles.canvas.GraphControl();
+
+gc.createSelectionPaintManager.apply();
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [The return type of "yfiles.canvas.GraphControl#createSelectionPaintManager" has changed to "yfiles.view.IGraphSelection"]
