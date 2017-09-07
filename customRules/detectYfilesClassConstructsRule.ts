@@ -1,8 +1,5 @@
 import * as ts from "typescript";
 import * as Lint from "tslint";
-import {changes} from "../changes"
-import {MemberRuleWalker} from "./memberRuleWalker";
-import {getFullyQualifiedName} from "./util";
 
 export class Rule extends Lint.Rules.TypedRule {
   public applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
@@ -15,9 +12,9 @@ class DetectYfilesClassConstructsWalker extends Lint.ProgramAwareRuleWalker {
     const object = node.expression.getText();
     const property = node.name.getText();
 
-    if ((object === "yfiles"
+    if ((object.indexOf("yfiles") >= 0 // allow stuff like (yfiles as any).lang.Class
             && (property === "ClassDefinition" || property === "InterfaceDefinition" || property === "StructDefinition"))
-        || (object === "yfiles.lang"
+        || (object.indexOf("yfiles") >= 0 && object.indexOf("lang") >= 0
             && (property === "Class" || property === "Interface" || property === "Struct"))) {
       this.addFailureAtNode(node, "It is now possible for TypeScript classes to extend directly from yFiles classes. " +
           "Please refer to http://docs.yworks.com/yfileshtml/#/dguide/framework_basic_interfaces#framework_complex_inheritance.")
