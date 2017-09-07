@@ -1,0 +1,12 @@
+///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+
+interface Constructable extends yfiles.drawing.SimpleAbstractNodeStyle<yfiles.drawing.DefaultVisual> {
+  new (): Constructable;
+}
+
+export var MyCLass =(<any>yfiles).module('demo', function(exports) {
+  exports.MySimpleNodeStyle = new yfiles.ClassDefinition(function () {
+                                  ~~~~~~~~~~~~~~~~~~~~~~ [It is now possible for TypeScript classes to extend directly from yFiles classes. Please refer to http://docs.yworks.com/yfileshtml/#/dguide/framework_basic_interfaces#framework_complex_inheritance.]
+    return {};
+  });
+}).MyCLass as Constructable;
