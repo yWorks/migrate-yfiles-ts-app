@@ -59,7 +59,15 @@ export abstract class MemberRuleWalker extends Lint.ProgramAwareRuleWalker {
     if (node.parent.kind === ts.SyntaxKind.ClassDeclaration) {
       const classDeclaration = <ts.ClassDeclaration> node.parent;
 
+      if (!classDeclaration.heritageClauses) {
+        return;
+      }
+
       classDeclaration.heritageClauses.forEach(heritageClause => {
+        if (!heritageClause.types) {
+          return;
+        }
+
         heritageClause.types.forEach(typeNode => {
           this.checkMemberNode(node, typeNode, oldName)
         });
