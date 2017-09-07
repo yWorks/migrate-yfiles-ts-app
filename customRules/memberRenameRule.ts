@@ -10,8 +10,9 @@ export class Rule extends Lint.Rules.TypedRule {
 }
 
 class MemberRenameWalker extends MemberRuleWalker {
+  configEntryName: string = "memberRenamings";
   protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
-    const newName = changes["memberRenamings"][oldParentName] && changes["memberRenamings"][oldParentName][oldMemberName];
+    const newName = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
 
     if (newName) {
       this.addFailureAtNode(node, `"${oldParentName}#${oldMemberName}" has been renamed to "${newName}"`);

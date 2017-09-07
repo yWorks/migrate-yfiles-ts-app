@@ -10,6 +10,8 @@ export class Rule extends Lint.Rules.TypedRule {
 }
 
 class ChangeSignatureWalker extends MemberRuleWalker {
+  configEntryName: string = "signatureChanges";
+
   protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
     if (node.parent.kind !== ts.SyntaxKind.CallExpression
         && node.parent.kind !== ts.SyntaxKind.NewExpression
@@ -26,7 +28,7 @@ class ChangeSignatureWalker extends MemberRuleWalker {
       oldParentName = oldParentName.substring(0, lastDot)
     }
 
-    const signatureChanges = changes["signatureChanges"][oldParentName] && changes["signatureChanges"][oldParentName][oldMemberName];
+    const signatureChanges = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
     if (signatureChanges) {
       const checker = this.getTypeChecker();
 

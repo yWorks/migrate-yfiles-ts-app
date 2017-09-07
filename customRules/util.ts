@@ -10,3 +10,14 @@ export function getFullyQualifiedName(type: ts.Type, checker: ts.TypeChecker): s
     return type["intrinsicName"];
   }
 }
+
+export function guessTypeForMember(memberName: string, changesDomain: any): string {
+  return Object.getOwnPropertyNames(changesDomain).find(name => {
+    const membersOfType = changesDomain[name];
+    if (Array.isArray(membersOfType)) {
+      return membersOfType.indexOf(memberName) >= 0;
+    } else {
+      return membersOfType.hasOwnProperty(memberName);
+    }
+  }) || "any";
+}

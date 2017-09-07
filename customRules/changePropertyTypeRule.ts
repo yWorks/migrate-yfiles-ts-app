@@ -11,6 +11,8 @@ export class Rule extends Lint.Rules.TypedRule {
 }
 
 class ChangeReturnTypeWalker extends MemberRuleWalker {
+  configEntryName: string = "propertyTypeChanges";
+
   protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
     if (node.kind !== ts.SyntaxKind.SetAccessor
         && node.kind !== ts.SyntaxKind.GetAccessor
@@ -19,7 +21,7 @@ class ChangeReturnTypeWalker extends MemberRuleWalker {
       return;
     }
 
-    const newType = changes["propertyTypeChanges"][oldParentName] && changes["propertyTypeChanges"][oldParentName][oldMemberName];
+    const newType = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
     if (newType) {
       const checker = this.getTypeChecker();
 

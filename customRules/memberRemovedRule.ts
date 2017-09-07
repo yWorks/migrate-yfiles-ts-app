@@ -10,9 +10,10 @@ export class Rule extends Lint.Rules.TypedRule {
 }
 
 class MemberRemovedWalker extends MemberRuleWalker {
+  configEntryName: string = "removedMembers";
   protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
-    const removed = changes["removedMembers"][oldParentName]
-        && changes["removedMembers"][oldParentName].indexOf(oldMemberName) >= 0;
+    const removed = changes[this.configEntryName][oldParentName]
+        && changes[this.configEntryName][oldParentName].indexOf(oldMemberName) >= 0;
 
     if (removed) {
       this.addFailureAtNode(node, `"${oldParentName}#${oldMemberName}" has been removed`);

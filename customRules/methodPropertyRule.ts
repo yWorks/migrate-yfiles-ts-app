@@ -10,8 +10,10 @@ export class Rule extends Lint.Rules.TypedRule {
 }
 
 class MethodPropertyWalker extends MemberRuleWalker {
+  configEntryName: string = "methodsProperties";
+
   protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
-    const newKind = changes["methodsProperties"][oldParentName] && changes["methodsProperties"][oldParentName][oldMemberName];
+    const newKind = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
 
     if (newKind) {
       this.addFailureAtNode(node, `"${oldParentName}#${oldMemberName}" is now a ${newKind}`);

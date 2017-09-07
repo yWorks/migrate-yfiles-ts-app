@@ -1,8 +1,11 @@
 import * as ts from "typescript";
 import * as Lint from "tslint";
-import {getFullyQualifiedName} from "./util";
+import {getFullyQualifiedName, guessTypeForMember} from "./util";
+import {changes} from "../changes";
 
 export abstract class MemberRuleWalker extends Lint.ProgramAwareRuleWalker {
+  abstract configEntryName: string;
+
   protected visitElementAccessExpression(node: ts.ElementAccessExpression) {
     const argumentExpression = node.argumentExpression;
 
@@ -66,7 +69,12 @@ export abstract class MemberRuleWalker extends Lint.ProgramAwareRuleWalker {
 
   private checkMemberNode(node: ts.Node, typeNode: ts.Node, oldName: string) {
     const checker = this.getTypeChecker();
-    const type = getFullyQualifiedName(checker.getTypeAtLocation(typeNode), checker);
+    let type = getFullyQualifiedName(checker.getTypeAtLocation(typeNode), checker);
+
+    if (type === "any") {
+      type = guessTypeForMember(oldName, changes[this.configEntryName]);
+    }
+
     this.checkForChanges(node, type, oldName);
   }
 
