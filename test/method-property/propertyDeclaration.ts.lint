@@ -2,8 +2,8 @@
 
 class MyEdgeList extends yfiles.algorithms.EdgeList {
   get last() {return null}
-  ~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
+      ~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
 
   set last(b) {}
-  ~~~~~~~~~~~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
+      ~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
 }

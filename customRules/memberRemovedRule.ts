@@ -2,6 +2,7 @@ import * as ts from "typescript";
 import * as Lint from "tslint";
 import {changes} from "../changes"
 import {MemberRuleWalker} from "./memberRuleWalker";
+import {nameNodeFromNode} from "./util";
 
 export class Rule extends Lint.Rules.TypedRule {
   public applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
@@ -15,11 +16,8 @@ class MemberRemovedWalker extends MemberRuleWalker {
     const removed = changes[this.configEntryName][oldParentName]
         && changes[this.configEntryName][oldParentName].indexOf(oldMemberName) >= 0;
 
-    const start = (<ts.NamedDeclaration>node).name.getStart();
-    const width = (<ts.NamedDeclaration>node).name.getWidth();
-
     if (removed) {
-      this.addFailureAt(start, width, `"${oldParentName}#${oldMemberName}" has been removed`);
+      this.addFailureAtNode(nameNodeFromNode(node), `"${oldParentName}#${oldMemberName}" has been removed`);
     }
   }
 }

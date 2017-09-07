@@ -11,6 +11,14 @@ export function getFullyQualifiedName(type: ts.Type, checker: ts.TypeChecker): s
   }
 }
 
+export function nameNodeFromNode(node: ts.Node): ts.Node {
+  if (node.kind === ts.SyntaxKind.ElementAccessExpression) {
+    return (<ts.ElementAccessExpression>node).argumentExpression;
+  } else {
+    return (<ts.NamedDeclaration>node).name
+  }
+}
+
 export function guessTypeForMember(memberName: string, changesDomain: any): string {
   return Object.getOwnPropertyNames(changesDomain).find(name => {
     const membersOfType = changesDomain[name];

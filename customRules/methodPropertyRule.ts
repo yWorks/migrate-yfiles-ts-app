@@ -2,6 +2,7 @@ import * as ts from "typescript";
 import * as Lint from "tslint";
 import {changes} from "../changes"
 import {MemberRuleWalker} from "./memberRuleWalker";
+import {nameNodeFromNode} from "./util";
 
 export class Rule extends Lint.Rules.TypedRule {
   public applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
@@ -16,7 +17,7 @@ class MethodPropertyWalker extends MemberRuleWalker {
     const newKind = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
 
     if (newKind) {
-      this.addFailureAtNode(node, `"${oldParentName}#${oldMemberName}" is now a ${newKind}`);
+      this.addFailureAtNode(nameNodeFromNode(node), `"${oldParentName}#${oldMemberName}" is now a ${newKind}`);
     }
   }
 }

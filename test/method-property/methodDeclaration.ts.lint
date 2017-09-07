@@ -2,5 +2,5 @@
 
 class MyGC extends yfiles.canvas.GraphControl {
   isDeviceDown(): boolean {return true}
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#isDeviceDown" is now a property]
+  ~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#isDeviceDown" is now a property]
 }

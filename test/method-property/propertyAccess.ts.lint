@@ -3,10 +3,10 @@
 const gc = new yfiles.canvas.GraphControl();
 
 gc.isDeviceDown()
-~~~~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#isDeviceDown" is now a property]
+   ~~~~~~~~~~~~ ["yfiles.canvas.GraphControl#isDeviceDown" is now a property]
 
 const edgeList = new yfiles.algorithms.EdgeList();
 
 edgeList.last;
-~~~~~~~~~~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
+         ~~~~ ["yfiles.algorithms.EdgeList#last" is now a method]
 
