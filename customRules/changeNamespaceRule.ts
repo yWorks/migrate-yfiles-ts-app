@@ -14,7 +14,10 @@ class ChangeNamespaceWalker extends NamespaceRuleWalker {
     const newNamespace = changes["namespaceChanges"] && changes["namespaceChanges"][oldNamespace];
 
     if (newNamespace) {
-      this.addFailureAtNode(node, `The namespace of "${oldNamespace}" has changed to "${newNamespace}"`);
+
+      const fix = new Lint.Replacement(node.getStart(), node.getWidth(), newNamespace);
+
+      this.addFailureAtNode(node, `The namespace of "${oldNamespace}" has changed to "${newNamespace}"`, fix);
     }
   }
 }

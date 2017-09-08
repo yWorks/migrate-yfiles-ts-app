@@ -1,6 +1,5 @@
 import * as ts from "typescript";
 import * as Lint from "tslint";
-import {changes} from "../changes"
 
 export abstract class NamespaceRuleWalker extends Lint.ProgramAwareRuleWalker {
   protected visitPropertyAccessExpression(node: ts.PropertyAccessExpression): void {
