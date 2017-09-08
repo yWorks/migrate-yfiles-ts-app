@@ -2,7 +2,10 @@
   "name": "migrate-yfiles-ts-app",
   "version": "0.1.0",
   "description": "Tool that helps with the migration of typescript files that reference old yFiles for HTML API.",
-  "main": "index.ts",
+  "main": "index.js",
+  "bin": {
+    "migrate-yfiles-ts": "index.js"
+  },
   "dependencies": {
     "@types/node": "^8.0.26",
     "@types/typescript": "^2.0.0",
@@ -13,7 +16,8 @@
   "devDependencies": {},
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && tslint --test ./test/* --rules-dir ./dist/customRules"
+    "test": "npm run build && tslint --test ./test/* --rules-dir ./dist/customRules",
+    "run": "migrate-yfiles-ts"
   },
   "repository": {
     "type": "git",
