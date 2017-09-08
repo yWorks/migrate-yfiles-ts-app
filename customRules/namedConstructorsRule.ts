@@ -24,9 +24,14 @@ class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
     const namedConstructorType = checker.getFullyQualifiedName(checker.getReturnTypeOfSignature(checker.getResolvedSignature(node)).getSymbol());
 
     if (typeExpressionType === namedConstructorType) {
+      const start = namedConstructor.name.getStart() - 1;
+      const width = namedConstructor.name.getWidth() + 1;
+
+      const fix = new Lint.Replacement(start, width, "");
+
       const parts = namedConstructor.getText().split(".");
-      this.addFailureAt(namedConstructor.name.getStart() - 1, namedConstructor.name.getWidth() + 1,
-          `Named constructors have been replaced by overloaded constructors. Simply remove the ".${parts[parts.length - 1]}".`);
+      this.addFailureAt(start, width,
+          `Named constructors have been replaced by overloaded constructors. Simply remove the ".${parts[parts.length - 1]}".`, fix);
     }
 
     super.visitNewExpression(node);
