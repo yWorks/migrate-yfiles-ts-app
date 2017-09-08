@@ -17,7 +17,15 @@ class MethodPropertyWalker extends MemberRuleWalker {
     const newKind = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
 
     if (newKind) {
-      this.addFailureAtNode(nameNodeFromNode(node), `"${oldParentName}#${oldMemberName}" is now a ${newKind}`);
+      // the only fix we can safely perform is to transform a "getter function" invocation into a property access (remove
+      // the parentheses)
+      let fix;
+      if (newKind === "property" && node.parent.kind === ts.SyntaxKind.CallExpression
+          && this.getTypeChecker().getResolvedSignature(<ts.CallLikeExpression>node.parent).getParameters().length === 0) {
+        fix = new Lint.Replacement(node.parent.getEnd() - 2, 2, "");
+      }
+
+      this.addFailureAtNode(nameNodeFromNode(node), `"${oldParentName}#${oldMemberName}" is now a ${newKind}`, fix);
     }
   }
 }
