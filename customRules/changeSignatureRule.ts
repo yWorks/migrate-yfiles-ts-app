@@ -12,7 +12,7 @@ export class Rule extends Lint.Rules.TypedRule {
 class ChangeSignatureWalker extends MemberRuleWalker {
   configEntryName: string = "signatureChanges";
 
-  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
+  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string, guess: boolean) {
     if (node.parent.kind !== ts.SyntaxKind.CallExpression
         && node.parent.kind !== ts.SyntaxKind.NewExpression
         && node.kind !== ts.SyntaxKind.MethodDeclaration) {

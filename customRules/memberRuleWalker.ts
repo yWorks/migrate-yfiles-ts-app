@@ -17,7 +17,7 @@ export abstract class MemberRuleWalker extends Lint.ProgramAwareRuleWalker {
       this.checkMemberNode(node, node.expression, oldName);
 
       // check static members
-      this.checkForChanges(node, node.expression.getText(), oldName);
+      this.checkForChanges(node, node.expression.getText(), oldName, false);
     }
 
     super.visitElementAccessExpression(node);
@@ -30,7 +30,7 @@ export abstract class MemberRuleWalker extends Lint.ProgramAwareRuleWalker {
     this.checkMemberNode(node, node.expression, oldName);
 
     // check static members
-    this.checkForChanges(node, node.expression.getText(), oldName);
+    this.checkForChanges(node, node.expression.getText(), oldName, false);
     super.visitPropertyAccessExpression(node);
   }
 
@@ -79,12 +79,14 @@ export abstract class MemberRuleWalker extends Lint.ProgramAwareRuleWalker {
     const checker = this.getTypeChecker();
     let type = getFullyQualifiedName(checker.getTypeAtLocation(typeNode), checker);
 
+    let guess: boolean;
     if (type === "any") {
+      guess = true;
       type = guessTypeForMember(oldName, changes[this.configEntryName]);
     }
 
-    this.checkForChanges(node, type, oldName);
+    this.checkForChanges(node, type, oldName, guess);
   }
 
-  protected abstract checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string);
+  protected abstract checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string, guess: boolean);
 }

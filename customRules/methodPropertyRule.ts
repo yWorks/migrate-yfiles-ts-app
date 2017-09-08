@@ -13,7 +13,7 @@ export class Rule extends Lint.Rules.TypedRule {
 class MethodPropertyWalker extends MemberRuleWalker {
   configEntryName: string = "methodsProperties";
 
-  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
+  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string, guess: boolean) {
     const newKind = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
 
     if (newKind) {

@@ -13,7 +13,7 @@ export class Rule extends Lint.Rules.TypedRule {
 class ChangeReturnTypeWalker extends MemberRuleWalker {
   configEntryName: string = "propertyTypeChanges";
 
-  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
+  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string, guess: boolean) {
     if (node.kind !== ts.SyntaxKind.SetAccessor
         && node.kind !== ts.SyntaxKind.GetAccessor
         && node.kind !== ts.SyntaxKind.PropertyAccessExpression

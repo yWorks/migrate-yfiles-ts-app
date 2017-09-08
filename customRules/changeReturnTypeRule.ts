@@ -13,7 +13,7 @@ export class Rule extends Lint.Rules.TypedRule {
 class ChangeReturnTypeWalker extends MemberRuleWalker {
   configEntryName: string = "returnTypeChanges";
 
-  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
+  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string, guess: boolean) {
     if (node.parent.kind !== ts.SyntaxKind.CallExpression
         && node.kind !== ts.SyntaxKind.MethodDeclaration) {
       return;

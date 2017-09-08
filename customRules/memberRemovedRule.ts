@@ -12,7 +12,7 @@ export class Rule extends Lint.Rules.TypedRule {
 
 class MemberRemovedWalker extends MemberRuleWalker {
   configEntryName: string = "removedMembers";
-  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string) {
+  protected checkForChanges(node: ts.Node, oldParentName: string, oldMemberName: string, guess: boolean) {
     const removed = changes[this.configEntryName][oldParentName]
         && changes[this.configEntryName][oldParentName].indexOf(oldMemberName) >= 0;
 
