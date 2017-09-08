@@ -1,8 +1,5 @@
 import * as ts from "typescript";
 import * as Lint from "tslint";
-import {changes} from "../changes"
-import {MemberRuleWalker} from "./memberRuleWalker";
-import {getFullyQualifiedName} from "./util";
 
 export class Rule extends Lint.Rules.TypedRule {
   public applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
@@ -28,7 +25,7 @@ class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
 
     if (typeExpressionType === namedConstructorType) {
       const parts = namedConstructor.getText().split(".");
-      this.addFailureAtNode(node,
+      this.addFailureAt(namedConstructor.name.getStart() - 1, namedConstructor.name.getWidth() + 1,
           `Named constructors have been replaced by overloaded constructors. Simply remove the ".${parts[parts.length - 1]}".`);
     }
 
