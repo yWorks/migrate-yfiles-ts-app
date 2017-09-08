@@ -40,6 +40,8 @@ class ChangeReturnTypeWalker extends MemberRuleWalker {
         targetNode = node.parent
       }
 
+      if (!oldSignature) return;
+
       const oldReturnType = getFullyQualifiedName(checker.getReturnTypeOfSignature(oldSignature), checker);
 
       if (isCallOrApply) {

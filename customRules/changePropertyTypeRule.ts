@@ -27,7 +27,9 @@ class ChangeReturnTypeWalker extends MemberRuleWalker {
 
       let oldType: string;
       if (node.kind === ts.SyntaxKind.GetAccessor) {
-        oldType = getFullyQualifiedName(checker.getSignatureFromDeclaration(<ts.SignatureDeclaration>node).getReturnType(), checker)
+        const signature = checker.getSignatureFromDeclaration(<ts.SignatureDeclaration>node);
+        if (!signature) return;
+        oldType = getFullyQualifiedName(signature.getReturnType(), checker)
       } else {
         oldType = getFullyQualifiedName(checker.getTypeAtLocation(node), checker);
       }

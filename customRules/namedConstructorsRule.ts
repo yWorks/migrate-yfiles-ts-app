@@ -20,8 +20,15 @@ class MemberRenameWalker extends Lint.ProgramAwareRuleWalker {
 
     const checker = this.getTypeChecker();
 
-    const typeExpressionType = checker.getFullyQualifiedName(checker.getSymbolAtLocation(typeExpression));
-    const namedConstructorType = checker.getFullyQualifiedName(checker.getReturnTypeOfSignature(checker.getResolvedSignature(node)).getSymbol());
+    const typeSymbol = checker.getSymbolAtLocation(typeExpression);
+    if (!typeSymbol) return;
+    const typeExpressionType = checker.getFullyQualifiedName(typeSymbol);
+
+    const signature = checker.getResolvedSignature(node);
+    if (!signature) return;
+    const namedConstructorSymbol = checker.getReturnTypeOfSignature(signature).getSymbol();
+    if (!namedConstructorSymbol) return;
+    const namedConstructorType = checker.getFullyQualifiedName(namedConstructorSymbol);
 
     if (typeExpressionType === namedConstructorType) {
       const start = namedConstructor.name.getStart() - 1;

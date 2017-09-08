@@ -34,13 +34,16 @@ class ChangeSignatureWalker extends MemberRuleWalker {
       let oldSignature, start, width;
       if (node.kind === ts.SyntaxKind.MethodDeclaration) {
         const signatureDeclaration = checker.getSignatureFromDeclaration(<ts.SignatureDeclaration>node).declaration;
+        if (!signatureDeclaration) return;
         oldSignature = signatureDeclaration.parameters
             .map(parameter => parameter.name.getText());
 
         start = (<ts.MethodDeclaration>node).name.getStart();
         width = (<ts.MethodDeclaration>node).name.getWidth();
       } else {
-        oldSignature = checker.getResolvedSignature(<ts.CallLikeExpression>node.parent).parameters
+        const signature = checker.getResolvedSignature(<ts.CallLikeExpression>node.parent);
+        if (!signature) return;
+        oldSignature = signature.parameters
             .map(parameter => parameter.getName());
 
         start = node.getEnd();
