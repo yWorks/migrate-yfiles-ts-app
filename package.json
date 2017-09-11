@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "Tool that helps with the migration of typescript files that reference old yFiles for HTML API.",
   "main": "index.js",
+  "files": ["dist", "changes.json", "tslint.json", "tsconfig.json"],
   "bin": {
-    "migrate-yfiles-ts": "dist/index.js"
+    "migrate-yfiles-ts-app": "dist/index.js"
   },
   "dependencies": {
     "@types/node": "^8.0.26",
@@ -19,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "test": "npm run build && tslint --test ./test/* --rules-dir ./dist/customRules",
-    "run": "migrate-yfiles-ts"
+    "run": "migrate-yfiles-ts-app"
   },
   "repository": {
     "type": "git",

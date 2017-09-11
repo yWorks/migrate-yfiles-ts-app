@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {Linter, Configuration, Replacement} from "tslint";
 import * as fs from "fs";
 import * as minimist from "minimist";
@@ -11,7 +13,9 @@ const minimistOptions = {
     o: "out"
   },
   "default": {
-    "fix": false
+    "fix": false,
+    "project": "tsconfig.json",
+    "out": "./"
   }
 };
 

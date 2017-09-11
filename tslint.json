@@ -1,0 +1,19 @@
+{
+  "linterOptions": {
+    "typeCheck": true,
+    "project": "./tsconfig.json"
+  },
+  "rulesDirectory": ["dist/customRules"],
+  "rules": {
+    "detect-yfiles-class-constructs": true,
+    "change-property-type": true,
+    "change-return-type": true,
+    "member-removed": true,
+    "type-removed": true,
+    "change-signature": true,
+    "named-constructors": true,
+    "method-property": true,
+    "member-rename": true,
+    "change-namespace": true
+  }
+}
