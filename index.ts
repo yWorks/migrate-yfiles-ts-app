@@ -21,13 +21,13 @@ const minimistOptions = {
 
 const cliOptions = minimist(process.argv.slice(2), minimistOptions);
 
-const configurationFilename = "tslint.json";
+const configurationFilename = path.resolve(__dirname, "../tslint.json");
 const options = {
   fix: false,
   formatter: "prose",
-  rulesDirectory: "dist/customRules/",
+  rulesDirectory: path.resolve(__dirname, "customRules/"),
   typeCheck: true,
-  project: "test-tsconfig.json"
+  project: cliOptions.project
 };
 
 const program = Linter.createProgram(options.project);

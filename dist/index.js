@@ -19,13 +19,13 @@ var minimistOptions = {
     }
 };
 var cliOptions = minimist(process.argv.slice(2), minimistOptions);
-var configurationFilename = "tslint.json";
+var configurationFilename = path.resolve(__dirname, "../tslint.json");
 var options = {
     fix: false,
     formatter: "prose",
-    rulesDirectory: "dist/customRules/",
+    rulesDirectory: path.resolve(__dirname, "customRules/"),
     typeCheck: true,
-    project: "test-tsconfig.json"
+    project: cliOptions.project
 };
 var program = tslint_1.Linter.createProgram(options.project);
 var projectBaseDir = path.parse(cliOptions.project).dir;
