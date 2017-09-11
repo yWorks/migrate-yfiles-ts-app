@@ -7,7 +7,7 @@
     "outDir": "./dist"
   },
   "include": [
-    "customRules/**.ts",
+    "customRules/**/*.ts",
     "index.ts"
   ],
   "exclude": [
