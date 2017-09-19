@@ -33,4 +33,8 @@ function guessTypeForMember(memberName, changesDomain) {
     }) || "any";
 }
 exports.guessTypeForMember = guessTypeForMember;
+function shouldFix(options) {
+    return options.indexOf("fix") >= 0;
+}
+exports.shouldFix = shouldFix;
 //# sourceMappingURL=util.js.map

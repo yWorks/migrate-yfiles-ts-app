@@ -36,7 +36,12 @@ var MemberRemovedWalker = /** @class */ (function (_super) {
         var removed = changes_1.changes[this.configEntryName][oldParentName]
             && changes_1.changes[this.configEntryName][oldParentName].indexOf(oldMemberName) >= 0;
         if (removed) {
-            this.addFailureAtNode(util_1.nameNodeFromNode(node), "\"" + oldParentName + "#" + oldMemberName + "\" has been removed");
+            if (guess) {
+                this.addFailureAtNode(util_1.nameNodeFromNode(node), "This member might have been removed (assuming it is a member of type \"" + oldParentName + "\", inferred type is \"any\")");
+            }
+            else {
+                this.addFailureAtNode(util_1.nameNodeFromNode(node), "\"" + oldParentName + "#" + oldMemberName + "\" has been removed");
+            }
         }
     };
     return MemberRemovedWalker;

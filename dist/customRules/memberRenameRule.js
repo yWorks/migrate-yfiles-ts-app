@@ -32,15 +32,20 @@ var MemberRenameWalker = /** @class */ (function (_super) {
         _this.configEntryName = "memberRenamings";
         return _this;
     }
-    MemberRenameWalker.prototype.checkForChanges = function (node, oldParentName, oldMemberName, isGuess) {
+    MemberRenameWalker.prototype.checkForChanges = function (node, oldParentName, oldMemberName, guess) {
         var newName = changes_1.changes[this.configEntryName][oldParentName] && changes_1.changes[this.configEntryName][oldParentName][oldMemberName];
         if (newName) {
             var targetNode = util_1.nameNodeFromNode(node);
-            var fix = void 0;
-            if (!isGuess) {
-                fix = new Lint.Replacement(targetNode.getStart(), targetNode.getWidth(), newName);
+            if (guess) {
+                this.addFailureAtNode(targetNode, "This member might have been renamed to \"" + newName + "\" (assuming it is a member of type \"" + oldParentName + "\", inferred type is \"any\")");
             }
-            this.addFailureAtNode(targetNode, "\"" + oldParentName + "#" + oldMemberName + "\" has been renamed to \"" + newName + "\"", fix);
+            else {
+                var fix = void 0;
+                if (util_1.shouldFix(this.getOptions())) {
+                    fix = new Lint.Replacement(targetNode.getStart(), targetNode.getWidth(), newName);
+                }
+                this.addFailureAtNode(targetNode, (fix ? "(fixed) " : "") + "\"" + oldParentName + "#" + oldMemberName + "\" has been renamed to \"" + newName + "\"", fix);
+            }
         }
     };
     return MemberRenameWalker;

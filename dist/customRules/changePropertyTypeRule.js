@@ -53,7 +53,12 @@ var ChangeReturnTypeWalker = /** @class */ (function (_super) {
             else {
                 oldType = util_1.getFullyQualifiedName(checker.getTypeAtLocation(node), checker);
             }
-            this.addFailureAtNode(node, "The type of property \"" + oldParentName + "#" + oldMemberName + "\" has changed from \"" + oldType + "\" to \"" + newType + "\"");
+            if (guess) {
+                this.addFailureAtNode(node, "The type of this property might have changed to \"" + newType + "\" (assuming this is a member of \"" + oldParentName + "\", inferred type is \"any\").");
+            }
+            else {
+                this.addFailureAtNode(node, "The type of property \"" + oldParentName + "#" + oldMemberName + "\" has changed from \"" + oldType + "\" to \"" + newType + "\"");
+            }
         }
     };
     return ChangeReturnTypeWalker;

@@ -12,6 +12,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var ts = require("typescript");
 var Lint = require("tslint");
+var util_1 = require("./util");
 var Rule = /** @class */ (function (_super) {
     __extends(Rule, _super);
     function Rule() {
@@ -50,9 +51,13 @@ var MemberRenameWalker = /** @class */ (function (_super) {
         if (typeExpressionType === namedConstructorType) {
             var start = namedConstructor.name.getStart() - 1;
             var width = namedConstructor.name.getWidth() + 1;
-            var fix = new Lint.Replacement(start, width, "");
+            var fix = void 0;
+            if (util_1.shouldFix(this.getOptions())) {
+                fix = new Lint.Replacement(start, width, "");
+            }
             var parts = namedConstructor.getText().split(".");
-            this.addFailureAt(start, width, "Named constructors have been replaced by overloaded constructors. Simply remove the \"." + parts[parts.length - 1] + "\".", fix);
+            this.addFailureAt(start, width, (fix ? "(fixed) " : "") + "Named constructors have been replaced by overloaded constructors."
+                + (fix ? "" : " Simply remove the \"." + parts[parts.length - 1] + "\"."), fix);
         }
         _super.prototype.visitNewExpression.call(this, node);
     };

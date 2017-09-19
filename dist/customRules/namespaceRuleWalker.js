@@ -16,6 +16,10 @@ var NamespaceRuleWalker = /** @class */ (function (_super) {
     function NamespaceRuleWalker() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    NamespaceRuleWalker.prototype.visitImportEqualsDeclaration = function (node) {
+        this.checkNamespace(node, node.moduleReference.getText());
+        _super.prototype.visitImportEqualsDeclaration.call(this, node);
+    };
     NamespaceRuleWalker.prototype.visitPropertyAccessExpression = function (node) {
         this.checkNamespace(node, node.getText());
         _super.prototype.visitPropertyAccessExpression.call(this, node);

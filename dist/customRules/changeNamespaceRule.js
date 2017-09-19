@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Lint = require("tslint");
 var changes_1 = require("../changes");
 var namespaceRuleWalker_1 = require("./namespaceRuleWalker");
+var util_1 = require("./util");
 var Rule = /** @class */ (function (_super) {
     __extends(Rule, _super);
     function Rule() {
@@ -32,8 +33,11 @@ var ChangeNamespaceWalker = /** @class */ (function (_super) {
     ChangeNamespaceWalker.prototype.checkNamespace = function (node, oldNamespace) {
         var newNamespace = changes_1.changes["namespaceChanges"] && changes_1.changes["namespaceChanges"][oldNamespace];
         if (newNamespace) {
-            var fix = new Lint.Replacement(node.getStart(), node.getWidth(), newNamespace);
-            this.addFailureAtNode(node, "The namespace of \"" + oldNamespace + "\" has changed to \"" + newNamespace + "\"", fix);
+            var fix = void 0;
+            if (util_1.shouldFix(this.getOptions())) {
+                fix = new Lint.Replacement(node.getStart(), node.getWidth(), newNamespace);
+            }
+            this.addFailureAtNode(node, (fix ? "(fixed) " : "") + "The namespace of \"" + oldNamespace + "\" has changed to \"" + newNamespace + "\"", fix);
         }
     };
     return ChangeNamespaceWalker;

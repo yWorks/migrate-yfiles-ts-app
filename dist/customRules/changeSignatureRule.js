@@ -69,12 +69,19 @@ var ChangeSignatureWalker = /** @class */ (function (_super) {
             }
             var newSignature = signatureChanges
                 .map(function (oldIndexOrNewName) { return typeof oldIndexOrNewName === "number" ? oldSignature_1[oldIndexOrNewName] : oldIndexOrNewName; });
-            if (isCallOrApply) {
-                this.addFailureAt(start, width, "The signature of \"" + oldParentName + "#" + oldMemberName + "\" has changed");
+            var failure = void 0;
+            if (guess) {
+                failure = "The signature of this method might have changed (assuming this is a member of \"" + oldParentName + "\", inferred type is \"any\")";
             }
             else {
-                this.addFailureAt(start, width, "The signature of \"" + oldParentName + "#" + oldMemberName + "\" has been changed from (" + oldSignature_1.join(", ") + ") to (" + newSignature.join(", ") + ")");
+                if (isCallOrApply) {
+                    failure = "The signature of \"" + oldParentName + "#" + oldMemberName + "\" has changed";
+                }
+                else {
+                    failure = "The signature of \"" + oldParentName + "#" + oldMemberName + "\" has been changed from (" + oldSignature_1.join(", ") + ") to (" + newSignature.join(", ") + ")";
+                }
             }
+            this.addFailureAt(start, width, failure);
         }
     };
     return ChangeSignatureWalker;

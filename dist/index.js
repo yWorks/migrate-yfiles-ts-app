@@ -34,6 +34,9 @@ for (var _i = 0, _a = program.getRootFileNames(); _i < _a.length; _i++) {
     var linter = new tslint_1.Linter(options, program);
     var fileContents = fs.readFileSync(fileName, "utf8");
     var configuration = tslint_1.Configuration.findConfiguration(configurationFilename, fileName).results;
+    if (cliOptions.fix) {
+        configuration.rules.forEach(function (rule) { return rule.ruleArguments.push("fix"); });
+    }
     linter.lint(fileName, fileContents, configuration);
     var result = linter.getResult();
     if (cliOptions.fix) {
