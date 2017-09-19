@@ -17,19 +17,23 @@ class MethodPropertyWalker extends MemberRuleWalker {
     const newKind = changes[this.configEntryName][oldParentName] && changes[this.configEntryName][oldParentName][oldMemberName];
 
     if (newKind) {
-      // the only fix we can safely perform is to transform a "getter function" invocation into a property access (remove
-      // the parentheses)
-      let fix;
-      if (shouldFix(this.getOptions())) {
-        if (newKind === "property" && node.parent.kind === ts.SyntaxKind.CallExpression) {
-          const signature = this.getTypeChecker().getResolvedSignature(<ts.CallLikeExpression>node.parent);
-          if (signature && signature.getParameters().length === 0) {
-            fix = new Lint.Replacement(node.parent.getEnd() - 2, 2, "");
+      if (guess) {
+        this.addFailureAtNode(nameNodeFromNode(node), `This member might be a ${newKind} now (assuming it is a member of type "${oldParentName}", inferred type is "any")`);
+      } else {
+        // the only fix we can safely perform is to transform a "getter function" invocation into a property access (remove
+        // the parentheses)
+        let fix;
+        if (shouldFix(this.getOptions())) {
+          if (newKind === "property" && node.parent.kind === ts.SyntaxKind.CallExpression) {
+            const signature = this.getTypeChecker().getResolvedSignature(<ts.CallLikeExpression>node.parent);
+            if (signature && signature.getParameters().length === 0) {
+              fix = new Lint.Replacement(node.parent.getEnd() - 2, 2, "");
+            }
           }
         }
-      }
 
-      this.addFailureAtNode(nameNodeFromNode(node), `${fix ? "(fixed) " : ""}"${oldParentName}#${oldMemberName}" is now a ${newKind}`, fix);
+        this.addFailureAtNode(nameNodeFromNode(node), `${fix ? "(fixed) " : ""}"${oldParentName}#${oldMemberName}" is now a ${newKind}`, fix);
+      }
     }
   }
 }

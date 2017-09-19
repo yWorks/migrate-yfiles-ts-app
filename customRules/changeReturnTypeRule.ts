@@ -44,13 +44,19 @@ class ChangeReturnTypeWalker extends MemberRuleWalker {
 
       const oldReturnType = getFullyQualifiedName(checker.getReturnTypeOfSignature(oldSignature), checker);
 
-      if (isCallOrApply) {
-        this.addFailureAtNode(targetNode,
-            `The return type of "${oldParentName}#${oldMemberName}" has changed to "${newReturnType}"`);
+      let failure: string;
+      if (guess) {
+        failure = `The return type of this method might have changed to "${newReturnType}" (assuming this is a member of "${oldParentName}", inferred type is "any")`;
       } else {
-        this.addFailureAtNode(targetNode,
-            `The return type of "${oldParentName}#${oldMemberName}" has changed from "${oldReturnType}" to "${newReturnType}"`);
+        if (isCallOrApply) {
+          failure = `The return type of "${oldParentName}#${oldMemberName}" has changed to "${newReturnType}"`;
+        } else {
+          failure = `The return type of "${oldParentName}#${oldMemberName}" has changed from "${oldReturnType}" to "${newReturnType}"`;
+        }
+
       }
+
+      this.addFailureAtNode(targetNode, failure);
     }
   }
 }

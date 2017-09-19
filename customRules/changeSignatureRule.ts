@@ -53,12 +53,18 @@ class ChangeSignatureWalker extends MemberRuleWalker {
       const newSignature = signatureChanges
           .map(oldIndexOrNewName => typeof oldIndexOrNewName === "number" ? oldSignature[oldIndexOrNewName] : oldIndexOrNewName);
 
-      if (isCallOrApply) {
-        this.addFailureAt(start, width, `The signature of "${oldParentName}#${oldMemberName}" has changed`);
+      let failure: string;
+      if (guess) {
+        failure = `The signature of this method might have changed (assuming this is a member of "${oldParentName}", inferred type is "any")`;
       } else {
-        this.addFailureAt(start, width,
-            `The signature of "${oldParentName}#${oldMemberName}" has been changed from (${oldSignature.join(", ")}) to (${newSignature.join(", ")})`);
+        if (isCallOrApply) {
+          failure = `The signature of "${oldParentName}#${oldMemberName}" has changed`;
+        } else {
+          failure = `The signature of "${oldParentName}#${oldMemberName}" has been changed from (${oldSignature.join(", ")}) to (${newSignature.join(", ")})`;
+        }
       }
+
+      this.addFailureAt(start, width, failure);
     }
   }
 }

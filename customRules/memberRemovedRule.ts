@@ -17,7 +17,11 @@ class MemberRemovedWalker extends MemberRuleWalker {
         && changes[this.configEntryName][oldParentName].indexOf(oldMemberName) >= 0;
 
     if (removed) {
-      this.addFailureAtNode(nameNodeFromNode(node), `"${oldParentName}#${oldMemberName}" has been removed`);
+      if (guess) {
+        this.addFailureAtNode(nameNodeFromNode(node), `This member might have been removed (assuming it is a member of type "${oldParentName}", inferred type is "any")`);
+      } else {
+        this.addFailureAtNode(nameNodeFromNode(node), `"${oldParentName}#${oldMemberName}" has been removed`);
+      }
     }
   }
 }
