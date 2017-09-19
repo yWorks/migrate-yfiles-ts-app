@@ -29,3 +29,7 @@ export function guessTypeForMember(memberName: string, changesDomain: any): stri
     }
   }) || "any";
 }
+
+export function shouldFix(options) {
+  return options.indexOf("fix") >= 0;
+}

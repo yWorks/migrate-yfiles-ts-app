@@ -39,6 +39,10 @@ for (let fileName of program.getRootFileNames()) {
   const fileContents = fs.readFileSync(fileName, "utf8");
   const configuration = Configuration.findConfiguration(configurationFilename, fileName).results;
 
+  if (cliOptions.fix) {
+    configuration.rules.forEach(rule => rule.ruleArguments.push("fix"));
+  }
+
   linter.lint(fileName, fileContents, configuration);
   const result = linter.getResult();
 

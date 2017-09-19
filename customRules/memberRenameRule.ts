@@ -2,7 +2,7 @@ import * as ts from "typescript";
 import * as Lint from "tslint";
 import {changes} from "../changes"
 import {MemberRuleWalker} from "./memberRuleWalker";
-import {nameNodeFromNode} from "./util";
+import {nameNodeFromNode, shouldFix} from "./util";
 import {Replacement} from "tslint";
 
 export class Rule extends Lint.Rules.TypedRule {
@@ -20,11 +20,11 @@ class MemberRenameWalker extends MemberRuleWalker {
       const targetNode = nameNodeFromNode(node);
       let fix: Replacement;
 
-      if (!isGuess) {
+      if (shouldFix(this.getOptions()) && !isGuess) {
         fix = new Lint.Replacement(targetNode.getStart(), targetNode.getWidth(), newName);
       }
 
-      this.addFailureAtNode(targetNode, `"${oldParentName}#${oldMemberName}" has been renamed to "${newName}"`, fix);
+      this.addFailureAtNode(targetNode, `${fix ? "(fixed) " : ""}"${oldParentName}#${oldMemberName}" has been renamed to "${newName}"`, fix);
     }
   }
 }
