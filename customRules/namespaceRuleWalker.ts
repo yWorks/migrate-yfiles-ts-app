@@ -3,7 +3,7 @@ import * as Lint from "tslint";
 
 export abstract class NamespaceRuleWalker extends Lint.ProgramAwareRuleWalker {
   protected visitImportEqualsDeclaration(node: ts.ImportEqualsDeclaration): void {
-    this.checkNamespace(node, node.moduleReference.getText());
+    this.checkNamespace(node.moduleReference, node.moduleReference.getText());
     super.visitImportEqualsDeclaration(node);
   }
 
