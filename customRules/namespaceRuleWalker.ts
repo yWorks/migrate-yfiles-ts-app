@@ -13,7 +13,7 @@ export abstract class NamespaceRuleWalker extends Lint.ProgramAwareRuleWalker {
   }
 
   protected visitTypeReference(node: ts.TypeReferenceNode): void {
-    this.checkNamespace(node, node.getText());
+    this.checkNamespace(node.typeName, node.typeName.getText());
     super.visitTypeReference(node);
   }
 

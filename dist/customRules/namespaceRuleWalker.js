@@ -25,7 +25,7 @@ var NamespaceRuleWalker = /** @class */ (function (_super) {
         _super.prototype.visitPropertyAccessExpression.call(this, node);
     };
     NamespaceRuleWalker.prototype.visitTypeReference = function (node) {
-        this.checkNamespace(node, node.getText());
+        this.checkNamespace(node.typeName, node.typeName.getText());
         _super.prototype.visitTypeReference.call(this, node);
     };
     return NamespaceRuleWalker;
