@@ -1,6 +1,6 @@
 {
   "name": "migrate-yfiles-ts-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tool that helps with the migration of typescript files that reference old yFiles for HTML API.",
   "main": "index.js",
   "files": [
