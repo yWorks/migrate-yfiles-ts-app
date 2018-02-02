@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+///<reference path="../../yfiles.d.ts"/>
 
 const gc = new yfiles.canvas.GraphControl();
 

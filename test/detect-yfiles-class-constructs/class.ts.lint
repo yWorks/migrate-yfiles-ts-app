@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+///<reference path="../../yfiles.d.ts"/>
 
 interface Constructable extends yfiles.drawing.SimpleAbstractNodeStyle<yfiles.drawing.DefaultVisual> {
   new (): Constructable;

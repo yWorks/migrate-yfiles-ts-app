@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+///<reference path="../../yfiles.d.ts"/>
 
 const map: yfiles.algorithms.IMap = <yfiles.algorithms.IMap>null;
            ~~~~~~~~~~~~~~~~~~~~~~ [The namespace of "yfiles.algorithms.IMap" has changed to "yfiles.collections.IMap"]

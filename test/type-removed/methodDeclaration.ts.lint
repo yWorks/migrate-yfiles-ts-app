@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+///<reference path="../../yfiles.d.ts"/>
 
 class MyClass{
   private myMethod(a: yfiles.algorithms.ArrayIntNodePQ): yfiles.algorithms.ArrayIntNodePQ {

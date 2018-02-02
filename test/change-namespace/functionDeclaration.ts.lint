@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/@types/yfiles/index.d.ts"/>
+///<reference path="../../yfiles.d.ts"/>
 
 function f(a: yfiles.algorithms.IMap): yfiles.algorithms.IMap {return null}
               ~~~~~~~~~~~~~~~~~~~~~~ [The namespace of "yfiles.algorithms.IMap" has changed to "yfiles.collections.IMap"]
