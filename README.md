@@ -21,7 +21,7 @@ $ migrate-yfiles-ts-app --project path/to/tsconfig.json [--fix --out out/path]
   separate out path (default: ```./```).
 
 ## Tests
-In order to run the tests put the yFiles type definition file from the version that your program is using into "yfiles.d.ts" in the root folder.
+In order to run the tests put the yFiles type definition file of yFiles for HTML 1.3 in the root folder.
   
 # About
 This tool is built on top of [TSLint](https://palantir.github.io/tslint/) and adds some custom 
