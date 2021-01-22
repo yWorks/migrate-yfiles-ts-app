@@ -1,4 +1,7 @@
 # migrate-yfiles-ts-app
+
+# **DEPRECATED:** This migration tool is deprecated, as [migrate-yfiles-app](https://github.com/yWorks/migrate-yfiles-app) supports TypeScript files as well now.
+
 Tool that helps with the migration of typescript files that reference old yFiles for HTML API.
 
 # Usage
